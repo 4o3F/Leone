@@ -9,7 +9,11 @@ var (
 	Monitormode bool
 	Attackmode  bool
 	Target      string
-	Data        []string
+	Data        map[string]string
+	//Player      []struct {
+	//	Name string
+	//	ID   uuid.UUID
+	//}
 )
 
 func LoadConfig() {
@@ -35,10 +39,17 @@ func loadData() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	Data = data.GetStringSlice("players")
+	Data = data.GetStringMapString("players")
+	//for i := range Data {
+	//	name, id := CutData(Data[i])
+	//	Player[i] = struct {
+	//		Name string
+	//		ID   uuid.UUID
+	//	}{Name: name, ID: id}
+	//}
 }
 
-func SaveData()  {
+func SaveData() {
 	data := viper.New()
 	data.SetConfigName("data")
 	data.SetConfigType("yml")

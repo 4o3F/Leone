@@ -27,7 +27,12 @@ type status struct {
 	//favicon ignored
 }
 
-func StartMonitor()  {
+var (
+	MaxPlayer    int
+	OnlinePlayer int
+)
+
+func StartMonitor() {
 	monitorcron := cron.New()
 	monitorcron.AddFunc("@every 5s", doMonitor)
 	monitorcron.Start()
@@ -40,7 +45,7 @@ func StartMonitor()  {
 
 func doMonitor() {
 	addr, port := utils.GetAddr(utils.Target)
-	response , _,err := bot.PingAndList(addr, port)
+	response, _, err := bot.PingAndList(addr, port)
 	if err != nil {
 		log.Println(err)
 	}
@@ -49,17 +54,23 @@ func doMonitor() {
 	if err != nil {
 		log.Println(err)
 	}
+
+	MaxPlayer = status.Players.Max
+	OnlinePlayer = status.Players.Online
+
 	for i := range status.Players.Sample {
-		exist := utils.InStringSlice(utils.Data, status.Players.Sample[i].Name)
+		//exist := utils.InStringSlice(utils.Data, status.Players.Sample[i].Name)
+		_, exist := utils.Data[status.Players.Sample[i].Name]
 		if !exist {
-			utils.Data = append(utils.Data, status.Players.Sample[i].Name)
-			log.Println("New Player: " + status.Players.Sample[i].Name)
+			//utils.Data = append(utils.Data, status.Players.Sample[i].Name)
+			utils.Data[status.Players.Sample[i].Name] = status.Players.Sample[i].ID.String()
+			log.Println("New Player: " + status.Players.Sample[i].Name + " " + status.Players.Sample[i].ID.String())
 		}
 	}
 	//log.Println("Monitor " + strconv.Itoa(int(time.Now().UnixNano()/1e6)))
 }
 
-func doSave()  {
+func doSave() {
 	utils.SaveData()
 	//log.Println("Save " + strconv.Itoa(int(time.Now().UnixNano()/1e6)))
 }

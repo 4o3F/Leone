@@ -13,11 +13,14 @@ import (
 
 
 func main()  {
+	//log.Fatal(bot.OfflineUUID("CompoundKhan885"))
 	utils.LoadConfig()
 	if utils.Monitormode {
 		fmt.Println("Running in MonitorMode")
 		component.StartMonitor()
 	}
+
+
 	//client := newJoin()
 	//err := client.JoinServer("game.spawnmc.net",21117)
 	//if err != nil {
