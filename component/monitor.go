@@ -60,10 +60,10 @@ func doMonitor() {
 
 	for i := range status.Players.Sample {
 		//exist := utils.InStringSlice(utils.Data, status.Players.Sample[i].Name)
-		_, exist := utils.Data[status.Players.Sample[i].Name]
+		_, exist := utils.Data[status.Players.Sample[i].ID.String()]
 		if !exist {
 			//utils.Data = append(utils.Data, status.Players.Sample[i].Name)
-			utils.Data[status.Players.Sample[i].Name] = status.Players.Sample[i].ID.String()
+			utils.Data[status.Players.Sample[i].ID.String()] = status.Players.Sample[i].Name
 			log.Println("New Player: " + status.Players.Sample[i].Name + " " + status.Players.Sample[i].ID.String())
 		}
 	}
