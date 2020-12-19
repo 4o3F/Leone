@@ -14,6 +14,8 @@ dmitri.shuralyov.com/gpu/mtl v0.0.0-20190408044501-666a987793e9/go.mod h1:H6x//7
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
 github.com/OneOfOne/xxhash v1.2.2/go.mod h1:HSdplMjZKSmBqAxg5vPj2TmRDmfkzw+cTzAElWljhcU=
+github.com/ThreeKing2018/gocolor v0.0.0-20190625094635-394e0e24c0d0 h1:fFoYXYxBFRE1exQedMZyFy4P1LHGJH1idubWhVuEJ0I=
+github.com/ThreeKing2018/gocolor v0.0.0-20190625094635-394e0e24c0d0/go.mod h1:dG3aFVtzqgcYBEhVjC139oGBy2Z7C92+iyXNaiViDNM=
 github.com/Tnze/go-mc v1.16.2-0.20201130062915-67806abcdb74 h1:oXhsbDW6St9l+hc0vUC/K2SLSRIaooxmjUrqsZpjIuw=
 github.com/Tnze/go-mc v1.16.2-0.20201130062915-67806abcdb74/go.mod h1:0zQrnAv2kiKDc3WKCdX+/S8F+x5tGeUXqhe9GiKL+nk=
 github.com/alecthomas/template v0.0.0-20160405071501-a0175ee3bccc/go.mod h1:LOuyumcjzFXgccqObfd/Ljyb9UuFJ6TxHnclSeseNhc=
@@ -192,6 +194,8 @@ github.com/subosito/gotenv v1.2.0 h1:Slr1R9HxAlEKefgq5jn9U+DnETlIUa6HfgEzj0g5d7s
 github.com/subosito/gotenv v1.2.0/go.mod h1:N0PQaV/YGNqwC0u51sEeR/aUtSLEXKX9iv69rRypqCw=
 github.com/tmc/grpc-websocket-proxy v0.0.0-20190109142713-0ad062ec5ee5/go.mod h1:ncp9v5uamzpCO7NfCPTXjqaC+bZgJeR0sMTm6dMHP7U=
 github.com/xiang90/probing v0.0.0-20190116061207-43a291ad63a2/go.mod h1:UETIi67q53MR2AWcXfiuqkDkRtnGDLqkBTpCHuJHxtU=
+github.com/yezihack/colorlog v0.0.0-20190312024641-4717a40e9990 h1:62I1TD5lofiBbO3+oS5wVXBCB7hyncP4Ge0UsVKSag0=
+github.com/yezihack/colorlog v0.0.0-20190312024641-4717a40e9990/go.mod h1:oeujxvLndaRV//iyjkRt4o71gSTvyf+T4NOt0ZQSWc4=
 go.etcd.io/bbolt v1.3.2/go.mod h1:IbVyRI1SCnLcuJnV2u8VeU0CEYM7e686BmAb1XKL+uU=
 go.opencensus.io v0.21.0/go.mod h1:mSImk1erAIZhrmZN+AvHh14ztQfjbGwt4TtuofqLduU=
 go.opencensus.io v0.22.0/go.mod h1:+kGneAE2xo2IficOXnaByMWTGM9T73dGwxeWcUqIpI8=

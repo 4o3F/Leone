@@ -11,16 +11,20 @@ import (
 	"net/http"
 	"strings"
 	"time"
+	"github.com/yezihack/colorlog"
 )
 
-var proxyList []string
+var (
+	proxyList []string
+	proxyupdatedone bool
+)
 
 func LoadProxy() bot.Dialer {
 	rand.Seed(time.Now().Unix())
 	address := proxyList[rand.Intn(len(proxyList))]
 	dia,err := proxy.SOCKS5("tcp", address, nil, proxy.Direct)
 	if err != nil {
-		log.Fatalf("can't connect to the proxy:", err)
+		colorlog.Warn("can't connect to the proxy:", err)
 	}
 	return dia
 }
@@ -28,14 +32,15 @@ func LoadProxy() bot.Dialer {
 func GetAddress() {
 	getAddress()
 	proxylistcron := cron.New()
-	proxylistcron.AddFunc("@every 20s", getAddress)
+	proxylistcron.AddFunc("@every 10m", getAddress)
 	proxylistcron.Start()
 
 	select {}
 }
 
 func getAddress() {
-	response, err := http.Get("https://www.proxy-list.download/api/v1/get?type=socks5&country=CN")
+	proxyupdatedone = false
+	response, err := http.Get("https://www.proxy-list.download/api/v1/get?type=socks5")
 	if err != nil {
 		log.Println(err)
 	}
@@ -44,8 +49,30 @@ func getAddress() {
 		log.Println(err)
 	}
 	scanner := bufio.NewScanner(strings.NewReader(string(body)))
+	proxyList = proxyList[:0]
 	for scanner.Scan() {
-		proxyList = append(proxyList, scanner.Text())
+		colorlog.Info("Checking proxy " + scanner.Text())
+		if checkProxy(scanner.Text()) {
+			proxyList = append(proxyList, scanner.Text())
+		}
 	}
-	log.Println("Get Proxy List Success")
+	colorlog.Info("Get Proxy List Success")
+}
+
+func checkProxy(address string) bool {
+	dialer, err := proxy.SOCKS5("tcp", address, nil, proxy.Direct)
+	if err != nil {
+		return false
+	}
+	httpTransport := &http.Transport{}
+	httpClient := &http.Client{Transport: httpTransport, Timeout: 5*time.Second}
+	httpTransport.Dial = dialer.Dial
+	resp, err := httpClient.Get("https://www.baidu.com")
+	if err != nil {
+		return false
+	}
+	defer resp.Body.Close()
+	colorlog.Warn("Proxy " + address + " avaliable")
+	proxyupdatedone = true
+	return true
 }
