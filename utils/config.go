@@ -10,10 +10,6 @@ var (
 	Attackmode  bool
 	Target      string
 	Data        map[string]string
-	//Player      []struct {
-	//	Name string
-	//	ID   uuid.UUID
-	//}
 )
 
 func LoadConfig() {
@@ -40,13 +36,6 @@ func loadData() {
 		log.Fatal(err)
 	}
 	Data = data.GetStringMapString("players")
-	//for i := range Data {
-	//	name, id := CutData(Data[i])
-	//	Player[i] = struct {
-	//		Name string
-	//		ID   uuid.UUID
-	//	}{Name: name, ID: id}
-	//}
 }
 
 func SaveData() {

@@ -59,18 +59,14 @@ func doMonitor() {
 	OnlinePlayer = status.Players.Online
 
 	for i := range status.Players.Sample {
-		//exist := utils.InStringSlice(utils.Data, status.Players.Sample[i].Name)
 		_, exist := utils.Data[status.Players.Sample[i].ID.String()]
 		if !exist {
-			//utils.Data = append(utils.Data, status.Players.Sample[i].Name)
 			utils.Data[status.Players.Sample[i].ID.String()] = status.Players.Sample[i].Name
 			log.Println("New Player: " + status.Players.Sample[i].Name + " " + status.Players.Sample[i].ID.String())
 		}
 	}
-	//log.Println("Monitor " + strconv.Itoa(int(time.Now().UnixNano()/1e6)))
 }
 
 func doSave() {
 	utils.SaveData()
-	//log.Println("Save " + strconv.Itoa(int(time.Now().UnixNano()/1e6)))
 }

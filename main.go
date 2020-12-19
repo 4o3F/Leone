@@ -13,12 +13,18 @@ import (
 
 
 func main()  {
+	//component.LoadProxy()
 	//log.Fatal(bot.OfflineUUID("CompoundKhan885"))
+	go component.GetAddress()
 	utils.LoadConfig()
 	if utils.Monitormode {
 		fmt.Println("Running in MonitorMode")
 		component.StartMonitor()
+	} else if utils.Attackmode {
+		go component.StartMonitor()
+		component.StartAttack()
 	}
+
 
 
 	//client := newJoin()
